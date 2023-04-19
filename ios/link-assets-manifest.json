@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/circular-medium-italic.otf",
+      "sha1": "fdce946f1649c046388806513c4eed1c45852da2"
+    },
+    {
+      "path": "assets/fonts/circular-medium.otf",
+      "sha1": "29b0a9af2e480ffb9d45de38a44f1c21a002adc9"
+    },
+    {
+      "path": "assets/fonts/RedHatDisplay-Italic-VariableFont_wght.ttf",
+      "sha1": "24fdc371a42221dd2ded5f74478c251c8dd166b6"
+    },
+    {
+      "path": "assets/fonts/RedHatDisplay-VariableFont_wght.ttf",
+      "sha1": "e4fb1030e44195925121b2ede7d879a967c2f825"
+    },
+    {
+      "path": "assets/fonts/Roboto-Regular.ttf",
+      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+    }
+  ]
+}
