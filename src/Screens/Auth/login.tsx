@@ -10,7 +10,6 @@ import {
   View,
 } from 'react-native';
 import {TesLogo} from '../../../assets';
-import 'react-native-gesture-handler';
 import {Styles} from './styles';
 export const girlsImg = require('../../../assets/girls.png');
 export const Frame9 = require('../../../assets/Frame9.png');

@@ -10,11 +10,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-export const logo = require('../../../assets/logo.png');
-export const googleIcon = require('../../../assets/Google.png');
-export const facebookIcon = require('../../../assets/facebook.png');
-export const shapeOne = require('../../../assets/shapeOne.png');
-export const shapeTwo = require('../../../assets/shapeTwo.png');
+export const logo = require('./../../../assets/logo.png');
+export const googleIcon = require('./../../../assets/Google.png');
+export const facebookIcon = require('./../../../assets/facebook.png');
+export const shapeOne = require('./../../../assets/shapeOne.png');
+export const shapeTwo = require('./../../../assets/shapeTwo.png');
 
 function Demo(): JSX.Element {
   return (
