@@ -5,7 +5,14 @@ import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 
 import {NavigationContainer} from '@react-navigation/native';
 
-import {Login, Demo, BlinkApp, LotsOfGreetings} from './Screens';
+import {
+  Login,
+  Demo,
+  BlinkApp,
+  LotsOfGreetings,
+  Example,
+  ClassComponent,
+} from './Screens';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +20,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LotsOfGreetings"
+        initialRouteName="Example"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
@@ -23,6 +30,8 @@ function Navigators(): JSX.Element {
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="BlinkApp" component={BlinkApp} />
         <Stack.Screen name="LotsOfGreetings" component={LotsOfGreetings} />
+        <Stack.Screen name="Example" component={Example} />
+        <Stack.Screen name="ClassComponent" component={ClassComponent} />
       </Stack.Navigator>
     </NavigationContainer>
   );
