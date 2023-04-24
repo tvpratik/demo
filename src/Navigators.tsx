@@ -12,6 +12,9 @@ import {
   LotsOfGreetings,
   Example,
   ClassComponent,
+  InputRef,
+  FlatListScroll,
+  CountryCodePicker,
 } from './Screens';
 
 const Stack = createStackNavigator();
@@ -20,7 +23,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Example"
+        initialRouteName="CountryCodePicker"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
@@ -32,6 +35,9 @@ function Navigators(): JSX.Element {
         <Stack.Screen name="LotsOfGreetings" component={LotsOfGreetings} />
         <Stack.Screen name="Example" component={Example} />
         <Stack.Screen name="ClassComponent" component={ClassComponent} />
+        <Stack.Screen name="Input" component={InputRef} />
+        <Stack.Screen name="FlatListScroll" component={FlatListScroll} />
+        <Stack.Screen name="CountryCodePicker" component={CountryCodePicker} />
       </Stack.Navigator>
     </NavigationContainer>
   );
