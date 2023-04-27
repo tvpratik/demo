@@ -1,4 +1,7 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import {store} from './src/Redux/Store';
+
 import Navigators from './src/Navigators';
 import 'react-native-gesture-handler';
 // import DrawerNavigator from './src/DrawerNavigator';
@@ -7,7 +10,11 @@ import 'react-native-gesture-handler';
 function App(): JSX.Element {
   // return <BottomTabNavigator />;
   // return <DrawerNavigator />;
-  return <Navigators />;
+  return (
+    <Provider store={store}>
+      <Navigators />
+    </Provider>
+  );
 }
 
 export default App;

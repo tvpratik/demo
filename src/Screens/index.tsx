@@ -10,3 +10,4 @@ export {default as ClassComponent} from './ClassComponent';
 export {default as InputRef} from './Input';
 export {default as FlatListScroll} from './FlatListScroll';
 export {default as CountryCodePicker} from './CountryCodePicker';
+export {default as Home} from './Home';
