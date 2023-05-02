@@ -16,6 +16,9 @@ import {
   FlatListScroll,
   CountryCodePicker,
   Home,
+  CoffeeAutonomous,
+  DemoAPI,
+  users,
 } from './Screens';
 
 const Stack = createStackNavigator();
@@ -24,7 +27,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="users"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
@@ -40,6 +43,9 @@ function Navigators(): JSX.Element {
         <Stack.Screen name="FlatListScroll" component={FlatListScroll} />
         <Stack.Screen name="CountryCodePicker" component={CountryCodePicker} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="CoffeeAutonomous" component={CoffeeAutonomous} />
+        <Stack.Screen name="DemoAPI" component={DemoAPI} />
+        <Stack.Screen name="users" component={users} />
       </Stack.Navigator>
     </NavigationContainer>
   );

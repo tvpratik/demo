@@ -11,3 +11,6 @@ export {default as InputRef} from './Input';
 export {default as FlatListScroll} from './FlatListScroll';
 export {default as CountryCodePicker} from './CountryCodePicker';
 export {default as Home} from './Home';
+export {default as CoffeeAutonomous} from './CoffeeAutonomous';
+export {default as DemoAPI} from './DemoAPI';
+export {default as users} from './users';

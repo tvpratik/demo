@@ -1,9 +1,10 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {store} from './src/Redux/Store';
+// import {store} from './src/Redux/Store';
 
 import Navigators from './src/Navigators';
 import 'react-native-gesture-handler';
+import store from './src/Redux/store';
 // import DrawerNavigator from './src/DrawerNavigator';
 // import BottomTabNavigator from './src/BottomTabNavigator';
 
