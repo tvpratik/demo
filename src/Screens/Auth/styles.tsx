@@ -117,4 +117,9 @@ export const Styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'circular-medium',
   },
+  errorTextStyle: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 14,
+  },
 });

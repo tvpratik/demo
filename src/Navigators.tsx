@@ -19,6 +19,7 @@ import {
   CoffeeAutonomous,
   DemoAPI,
   users,
+  Register,
 } from './Screens';
 
 const Stack = createStackNavigator();
@@ -27,13 +28,14 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="users"
+        initialRouteName="Register"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
           ...TransitionPresets.SlideFromRightIOS,
         }}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="BlinkApp" component={BlinkApp} />
         <Stack.Screen name="LotsOfGreetings" component={LotsOfGreetings} />
