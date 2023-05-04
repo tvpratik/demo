@@ -119,9 +119,9 @@ function Login(): JSX.Element {
       </ScrollView>
     </SafeAreaView>
   );
-}
+} 
 
-export default Login;
 function alert(arg0: string) {
   alert(arg0);
 }
+export default Login;
