@@ -2,6 +2,7 @@
 import 'react-native-gesture-handler';
 
 export {default as Demo} from './Auth/demo';
+export {default as GoogleLogin} from './Auth/googleLogin';
 export {default as Login} from './Auth/login';
 export {default as Register} from './Auth/register';
 export {default as BlinkApp} from './ExampleState';

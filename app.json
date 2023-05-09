@@ -1,4 +1,7 @@
 {
   "name": "demo",
-  "displayName": "demo"
+  "displayName": "demo",
+  "android": {
+    "googleServicesFile": "./google-services.json"
+  }
 }

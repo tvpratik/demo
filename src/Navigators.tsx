@@ -20,21 +20,22 @@ import {
   DemoAPI,
   users,
   Register,
+  GoogleLogin,
 } from './Screens';
-
 const Stack = createStackNavigator();
 
 function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Register"
+        initialRouteName="GoogleLogin"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
           ...TransitionPresets.SlideFromRightIOS,
         }}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="GoogleLogin" component={GoogleLogin} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="BlinkApp" component={BlinkApp} />
