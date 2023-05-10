@@ -21,6 +21,7 @@ import {
   users,
   Register,
   GoogleLogin,
+  FBLogin,
 } from './Screens';
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="GoogleLogin"
+        initialRouteName="FBLogin"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
@@ -36,6 +37,7 @@ function Navigators(): JSX.Element {
         }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="GoogleLogin" component={GoogleLogin} />
+        <Stack.Screen name="FBLogin" component={FBLogin} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="BlinkApp" component={BlinkApp} />

@@ -23,6 +23,8 @@
     "react": "18.2.0",
     "react-native": "0.71.7",
     "react-native-asset": "^2.1.0",
+    "react-native-facebook-login": "^1.6.2",
+    "react-native-fbsdk-next": "^11.2.1",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-reanimated": "^2.2.0",

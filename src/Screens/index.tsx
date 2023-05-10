@@ -16,3 +16,4 @@ export {default as Home} from './Home';
 export {default as CoffeeAutonomous} from './CoffeeAutonomous';
 export {default as DemoAPI} from './DemoAPI';
 export {default as users} from './users';
+export {default as FBLogin} from './Auth/FBLogin';
