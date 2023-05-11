@@ -17,3 +17,4 @@ export {default as CoffeeAutonomous} from './CoffeeAutonomous';
 export {default as DemoAPI} from './DemoAPI';
 export {default as users} from './users';
 export {default as FBLogin} from './Auth/FBLogin';
+export {default as GoogleMap} from './GoogleMap';
