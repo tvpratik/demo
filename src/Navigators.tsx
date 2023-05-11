@@ -29,7 +29,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="FBLogin"
+        initialRouteName="GoogleLogin"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,

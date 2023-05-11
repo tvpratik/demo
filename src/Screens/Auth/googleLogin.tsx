@@ -1,194 +1,245 @@
 /* eslint-disable prettier/prettier */
-// Example of Google Sign In in React Native Android and iOS App
-// https://aboutreact.com/example-of-google-sign-in-in-react-native/
-
-// Import React in our code
-import React, {useState, useEffect} from 'react';
-
-// Import all the components we are going to use
+import React, {Component, Fragment} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  Text,
+  ScrollView,
   View,
+  Text,
+  StatusBar,
+  Button,
   Image,
-  ActivityIndicator,
-  TouchableOpacity,
 } from 'react-native';
-
-// Import Google Signin
+import {
+  Header,
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-const GoogleLogin = () => {
-  const [userInfo, setUserInfo] = useState(null);
-  const [gettingLoginStatus, setGettingLoginStatus] = useState(true);
-
-  useEffect(() => {
-    // Initial configuration
+export default class GoogleLogin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pushData: [],
+      loggedIn: false,
+    };
+  }
+  componentDidMount() {
     GoogleSignin.configure({
-      // Mandatory method to call before calling signIn()
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-      // Repleace with your webClientId
-      // Generated from Firebase console
       webClientId:
         '262748839123-hqht40hk8tgqnceqlk3ejat6llidjls7.apps.googleusercontent.com',
+      offlineAccess: true,
+      hostedDomain: '',
+      forceConsentPrompt: true,
     });
-    // Check if user is already signed in
-    _isSignedIn();
-  }, []);
+  }
 
-  const _isSignedIn = async () => {
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    if (isSignedIn) {
-      alert('User is already signed in');
-      // Set User Info if user is already signed in
-      _getCurrentUserInfo();
-    } else {
-      console.log('Please Login');
+  _signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      this.setState({userInfo: userInfo, loggedIn: true});
+    } catch (error) {
+      console.log('error===>>', error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
     }
-    setGettingLoginStatus(false);
   };
 
-  const _getCurrentUserInfo = async () => {
+  getCurrentUserInfo = async () => {
     try {
-      let info = await GoogleSignin.signInSilently();
-      console.log('User Info --> ', info);
-      setUserInfo(info);
+      const userInfo = await GoogleSignin.signInSilently();
+      this.setState({userInfo});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        alert('User has not signed in yet');
-        console.log('User has not signed in yet');
+        // user has not signed in yet
+        this.setState({loggedIn: false});
       } else {
-        alert("Unable to get user's info");
-        console.log("Unable to get user's info");
+        // some other error
+        this.setState({loggedIn: false});
       }
     }
   };
 
-  const _signIn = async () => {
-    // It will prompt google Signin Widget
-    try {
-      await GoogleSignin.hasPlayServices({
-        // Check if device has Google Play Services installed
-        // Always resolves to true on iOS
-        showPlayServicesUpdateDialog: true,
-      });
-      const userInfo = await GoogleSignin.signIn();
-      console.log('User Info --> ', userInfo);
-      setUserInfo(userInfo);
-    } catch (error) {
-      console.log('Message', JSON.stringify(error));
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        alert('User Cancelled the Login Flow');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        alert('Signing In');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        alert('Play Services Not Available or Outdated');
-      } else {
-        alert(error.message);
-      }
-    }
-  };
-
-  const _signOut = async () => {
-    setGettingLoginStatus(true);
-    // Remove user session from the device.
+  signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      // Removing user Info
-      setUserInfo(null);
+      this.setState({user: null, loggedIn: false}); // Remember to remove the user from your app's state as well
     } catch (error) {
       console.error(error);
     }
-    setGettingLoginStatus(false);
   };
 
-  if (gettingLoginStatus) {
+  render() {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  } else {
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={styles.container}>
-          <Text style={styles.titleText}>
-            Example of Google Sign In in React Native
-          </Text>
-          <View style={styles.container}>
-            {userInfo !== null ? (
-              <>
-                <Image
-                  source={{uri: userInfo.user.photo}}
-                  style={styles.imageStyle}
-                />
-                <Text style={styles.text}>Name: {userInfo.user.name}</Text>
-                <Text style={styles.text}>Email: {userInfo.user.email}</Text>
-                <TouchableOpacity style={styles.buttonStyle} onPress={_signOut}>
-                  <Text>Logout</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <GoogleSigninButton
-                style={{width: 312, height: 48}}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Light}
-                onPress={_signIn}
-              />
+      <Fragment>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
+            <Header />
+            {global.HermesInternal == null ? null : (
+              <View style={styles.engine}>
+                <Text style={styles.footer}>Engine: Hermes</Text>
+              </View>
             )}
-          </View>
-          <Text style={styles.footerHeading}>
-            Google SignIn in React Native
-          </Text>
-          <Text style={styles.footerText}>www.aboutreact.com</Text>
-        </View>
-      </SafeAreaView>
+            <View style={styles.body}>
+              <View style={styles.sectionContainer}>
+                <GoogleSigninButton
+                  style={{width: 192, height: 48}}
+                  size={GoogleSigninButton.Size.Wide}
+                  color={GoogleSigninButton.Color.Dark}
+                  onPress={this._signIn}
+                  disabled={this.state.isSigninInProgress}
+                />
+              </View>
+              <View style={styles.buttonContainer}>
+                {!this.state.loggedIn && (
+                  <Text>You are currently logged out</Text>
+                )}
+                {this.state.loggedIn && (
+                  <Button
+                    onPress={this.signOut}
+                    title="Signout"
+                    color="#841584"></Button>
+                )}
+              </View>
+
+              {this.state.loggedIn && (
+                <View>
+                  <View style={styles.listHeader}>
+                    <Text>User Info</Text>
+                  </View>
+                  <View style={styles.dp}>
+                    <Image
+                      style={{width: 100, height: 100}}
+                      source={{
+                        uri:
+                          this.state.userInfo &&
+                          this.state.userInfo.user &&
+                          this.state.userInfo.user.photo,
+                      }}
+                    />
+                  </View>
+                  <View style={styles.detailContainer}>
+                    <Text style={styles.title}>Name</Text>
+                    <Text style={styles.message}>
+                      {this.state.userInfo &&
+                        this.state.userInfo.user &&
+                        this.state.userInfo.user.name}
+                    </Text>
+                  </View>
+                  <View style={styles.detailContainer}>
+                    <Text style={styles.title}>Email</Text>
+                    <Text style={styles.message}>
+                      {this.state.userInfo &&
+                        this.state.userInfo.user &&
+                        this.state.userInfo.user.email}
+                    </Text>
+                  </View>
+                  <View style={styles.detailContainer}>
+                    <Text style={styles.title}>ID</Text>
+                    <Text style={styles.message}>
+                      {this.state.userInfo &&
+                        this.state.userInfo.user &&
+                        this.state.userInfo.user.id}
+                    </Text>
+                  </View>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </Fragment>
     );
   }
-};
-
-export default GoogleLogin;
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
+  scrollView: {
+    backgroundColor: Colors.lighter,
   },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 20,
+  listHeader: {
+    backgroundColor: '#eee',
+    color: '#222',
+    height: 44,
+    padding: 12,
   },
-  imageStyle: {
-    width: 200,
-    height: 300,
-    resizeMode: 'contain',
+  detailContainer: {
+    paddingHorizontal: 20,
   },
-  buttonStyle: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 300,
-    marginTop: 30,
-  },
-  footerHeading: {
+  title: {
     fontSize: 18,
-    textAlign: 'center',
-    color: 'grey',
+    fontWeight: 'bold',
+    paddingTop: 10,
   },
-  footerText: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: 'grey',
+  message: {
+    fontSize: 14,
+    paddingBottom: 15,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
+  dp: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  engine: {
+    position: 'absolute',
+    right: 0,
+  },
+  body: {
+    backgroundColor: Colors.white,
+  },
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.black,
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+    color: Colors.dark,
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  footer: {
+    color: Colors.dark,
+    fontSize: 12,
+    fontWeight: '600',
+    padding: 4,
+    paddingRight: 12,
+    textAlign: 'right',
   },
 });
