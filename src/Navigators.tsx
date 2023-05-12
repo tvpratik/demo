@@ -23,6 +23,7 @@ import {
   GoogleLogin,
   FBLogin,
   GoogleMap,
+  TodoList,
 } from './Screens';
 const Stack = createStackNavigator();
 
@@ -30,7 +31,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="GoogleMap"
+        initialRouteName="TodoList"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
@@ -53,6 +54,7 @@ function Navigators(): JSX.Element {
         <Stack.Screen name="CoffeeAutonomous" component={CoffeeAutonomous} />
         <Stack.Screen name="DemoAPI" component={DemoAPI} />
         <Stack.Screen name="users" component={users} />
+        <Stack.Screen name="TodoList" component={TodoList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

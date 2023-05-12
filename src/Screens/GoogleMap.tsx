@@ -1,22 +1,49 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import MapView from 'react-native-maps';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 export default function GoogleMap() {
+  const [position, setPosition] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.015,
+    longitudeDelta: 0.0121,
+  });
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(pos => {
+      console.log(pos);
+      const crd = pos.coords;
+      setPosition({
+        latitude: parseFloat(crd.latitude),
+        longitude: parseFloat(crd.longitude),
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      });
+    }),
+      error => this.setState({error: error.message}),
+      {enableHighAccuracy: false, timeout: 200000, maximumAge: 1000};
+  }, []);
+
   return (
-    <View style={styles.container}>
-      {/*Render our MapView*/}
-      <MapView
-        style={styles.map}
-        //specify our coordinates.
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+    <MapView
+      style={styles.map}
+      //specify our coordinates.
+      initialRegion={position}
+      zoomEnabled={true}
+      showsUserLocation={true}
+      zoomControlEnabled={true}>
+      <Marker
+        coordinate={{
+          latitude: position.latitude,
+          longitude: position.longitude,
         }}
+        title={'Address'}
+        description={'test'}
       />
-    </View>
+    </MapView>
   );
 }
 //create our styling code:
