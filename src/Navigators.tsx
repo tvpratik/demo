@@ -31,7 +31,7 @@ function Navigators(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="TodoList"
+        initialRouteName="GoogleMap"
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
