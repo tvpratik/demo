@@ -1,39 +1,60 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Keyboard, ScrollView, StyleSheet, Text, View} from 'react-native';
-import TaskInputField from './../Components/TaskInputField';
-import TaskItem from './../Components/TaskItem';
+import AddInputTask from '../Components/AddInputTask';
+import ListTask from '../Components/ListTask';
+import EditInputTask from '../Components/EditInputTask';
 
 export default function TodoList() {
-  const [tasks, setTasks] = useState([]);
+  const [DataList, AddTasks] = useState([]);
+  const [editList, setEditList] = useState([]);
+  const [edited, EditedCheck] = useState(false);
 
-  const addTask = task => {
-    if (task == null) return;
-    setTasks([...tasks, task]);
+  const addTask = (items: any) => {
+    console.log('ADD task === ', items);
+    if (items == null) return;
+    AddTasks([...DataList, items]);
     Keyboard.dismiss();
+    EditedCheck(false);
   };
 
-  const deleteTask = deleteIndex => {
-    setTasks(tasks.filter((value, index) => index != deleteIndex));
+  const deleteTask = (removeIndex: any) => {
+    AddTasks(DataList.filter((value, index) => index != removeIndex));
+    EditedCheck(false);
+  };
+  const editTask = (items: any, index: any) => {
+    console.log('edittask ==>> ', items, index);
+    EditedCheck(true);
+    setEditList({item: items, index: index});
+    if (edited == true) {
+      DataList[index] = items;
+      console.log('items ', DataList);
+      EditedCheck(false);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>TODO LIST</Text>
       <ScrollView style={styles.scrollView}>
-        {tasks.map((task, index) => {
+        {DataList.map((task, index) => {
           return (
             <View key={index} style={styles.taskContainer}>
-              <TaskItem
+              <ListTask
                 index={index + 1}
                 task={task}
                 deleteTask={() => deleteTask(index)}
+                editTask={() => editTask(task, index)}
               />
             </View>
           );
         })}
       </ScrollView>
-      <TaskInputField addTask={addTask} />
+      {edited ? (
+        <EditInputTask editTask={editTask} editList={editList} />
+      ) : (
+        <AddInputTask addTask={addTask} />
+      )}
     </View>
   );
 }

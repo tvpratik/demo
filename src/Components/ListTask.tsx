@@ -2,8 +2,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 // import {MaterialIcons} from '@expo/vector-icons';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 
-export default TaskItem = props => {
+export default ListTask = props => {
   return (
     <View style={styles.container}>
       <View style={styles.indexContainer}>
@@ -11,8 +12,15 @@ export default TaskItem = props => {
       </View>
       <View style={styles.taskContainer}>
         <Text style={styles.task}>{props.task}</Text>
-        <TouchableOpacity onPress={() => props.deleteTask()}>
-         <Text>Del</Text>
+        <TouchableOpacity
+          style={styles.editMargin}
+          onPress={() => props.editTask()}>
+          <IconAnt name="edit" size={20} color={'#fff'} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editMargin}
+          onPress={() => props.deleteTask()}>
+          <IconAnt name="delete" size={20} color={'#fff'} />
         </TouchableOpacity>
       </View>
     </View>
@@ -50,10 +58,11 @@ const styles = StyleSheet.create({
   },
   task: {
     color: '#fff',
-    width: '90%',
+    width: '80%',
     fontSize: 16,
   },
   delete: {
     marginLeft: 10,
   },
+  editMargin: {margin: 5},
 });

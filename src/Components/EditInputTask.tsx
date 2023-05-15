@@ -1,20 +1,20 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
-  View,
-  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 
-export default TaskInputField = props => {
-  const [task, setTask] = useState();
+export default EditInputTask = (props: any) => {
+  const [editList, setEditList] = useState(null);
 
-  const handleAddTask = value => {
-    props.addTask(value);
-    setTask(null);
+  const handleAddTask = (value: string = '', index: any) => {
+    props.editTask(value, index);
+    setEditList(null);
   };
 
   return (
@@ -23,13 +23,15 @@ export default TaskInputField = props => {
       style={styles.container}>
       <TextInput
         style={styles.inputField}
-        value={task}
-        onChangeText={text => setTask(text)}
+        defaultValue={props.editList.item}
+        value={editList?.item}
+        onChangeText={text => setEditList(text)}
         placeholder={'Write a task'}
         placeholderTextColor={'#fff'}
       />
-      <TouchableOpacity onPress={() => handleAddTask(task)}>
-        <Text style={styles.button}>add</Text>
+      <TouchableOpacity
+        onPress={() => handleAddTask(editList, props.editList.index)}>
+        <IconAnt name="checksquare" size={30} color={'#fff'} />
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
