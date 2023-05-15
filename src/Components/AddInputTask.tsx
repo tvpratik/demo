@@ -9,11 +9,11 @@ import {
 import IconAnt from 'react-native-vector-icons/AntDesign';
 
 export default AddInputTask = props => {
-  const [DataList, AddTasks] = useState();
+  const [dataList, setAddTasks] = useState();
 
   const handleAddTask = value => {
     props.addTask(value);
-    AddTasks(null);
+    setAddTasks(null);
   };
 
   return (
@@ -22,12 +22,12 @@ export default AddInputTask = props => {
       style={styles.container}>
       <TextInput
         style={styles.inputField}
-        value={DataList}
-        onChangeText={text => AddTasks(text)}
+        value={dataList}
+        onChangeText={text => setAddTasks(text)}
         placeholder={'Write a task'}
         placeholderTextColor={'#fff'}
       />
-      <TouchableOpacity onPress={() => handleAddTask(DataList)}>
+      <TouchableOpacity onPress={() => handleAddTask(dataList)}>
         <IconAnt name="checksquare" size={30} color={'#fff'} />
       </TouchableOpacity>
     </KeyboardAvoidingView>

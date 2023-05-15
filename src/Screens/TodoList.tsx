@@ -6,30 +6,30 @@ import ListTask from '../Components/ListTask';
 import EditInputTask from '../Components/EditInputTask';
 
 export default function TodoList() {
-  const [DataList, AddTasks] = useState([]);
+  const [dataList, setAddTasks] = useState([]);
   const [editList, setEditList] = useState([]);
-  const [edited, EditedCheck] = useState(false);
+  const [edited, setEditedCheck] = useState(false);
 
   const addTask = (items: any) => {
     console.log('ADD task === ', items);
     if (items == null) return;
-    AddTasks([...DataList, items]);
+    setAddTasks([...dataList, items]);
     Keyboard.dismiss();
-    EditedCheck(false);
+    setEditedCheck(false);
   };
 
   const deleteTask = (removeIndex: any) => {
-    AddTasks(DataList.filter((value, index) => index != removeIndex));
-    EditedCheck(false);
+    setAddTasks(dataList.filter((value, index) => index != removeIndex));
+    setEditedCheck(false);
   };
   const editTask = (items: any, index: any) => {
     console.log('edittask ==>> ', items, index);
-    EditedCheck(true);
+    setEditedCheck(true);
     setEditList({item: items, index: index});
     if (edited == true) {
-      DataList[index] = items;
-      console.log('items ', DataList);
-      EditedCheck(false);
+      dataList[index] = items;
+      console.log('items ', dataList);
+      setEditedCheck(false);
     }
   };
 
@@ -37,7 +37,7 @@ export default function TodoList() {
     <View style={styles.container}>
       <Text style={styles.heading}>TODO LIST</Text>
       <ScrollView style={styles.scrollView}>
-        {DataList.map((task, index) => {
+        {dataList.map((task, index) => {
           return (
             <View key={index} style={styles.taskContainer}>
               <ListTask
